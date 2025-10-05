@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{team.name}} - Detail Tim</title>
+  <link rel="stylesheet" href="/css/detail.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">⚽ Sepakbola</div>
+    <nav class="nav-links">
+      <a href="/">Home</a>
+      <a href="#" class="active">Detail Tim</a>
+      <button class="btn-contact">Contact Me</button>
+    </nav>
+  </header>
+
+  <!-- Container untuk konten tim -->
+  <main class="container">
+    <div class="project-detail">
+      <h2>{{team.name}}</h2>
+      <img src="{{team.logo}}" alt="{{team.name}}">
+
+      <div class="project-details">
+        <h3>Berdiri: {{team.startYear}}</h3>
+        {{#if team.endYear}}
+          <h3>Tahun Terakhir: {{team.endYear}}</h3>
+        {{/if}}
+        <div class="tech-list">
+          {{#each team.competitions}}
+            <div class="tech">{{this}}</div>
+          {{/each}}
+        </div>
+      </div>
+
+      <div class="description">
+        <p>{{team.desc}}</p>
+      </div>
+
+      <button class="btn-back" onclick="window.location.href='/'">← Kembali</button>
+    </div>
+  </main>
+</body>
+</html>

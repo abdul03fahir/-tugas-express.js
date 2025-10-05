@@ -1,0 +1,103 @@
+<!-- NAVBAR -->
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand">
+      <div class="logo">⚽</div>
+      <nav class="nav">
+        <a href="/" class="active">Home</a>
+        <a href="#">Tim Sepak Bola</a>
+        <link rel="stylesheet" href="/css/home.css">
+
+      </nav>
+    </div>
+    <button class="contact-btn">Kontak</button>
+  </div>
+</header>
+
+<!-- FORM -->
+<section class="add-project container">
+  <h1 class="title">TAMBAH TIM SEPAK BOLA</h1>
+
+  <form action="/add-team" method="POST" enctype="multipart/form-data" class="project-form">
+    <label>Nama Tim
+      <input name="teamName" type="text" placeholder="Masukkan nama tim..." required />
+    </label>
+
+    <div class="date-row">
+      <label>Tahun Berdiri
+        <input name="startYear" type="date" required />
+      </label>
+      <label>Tahun Terakhir
+        <input name="endYear" type="date" />
+      </label>
+    </div>
+
+    <label>Deskripsi
+      <textarea name="teamDesc" rows="5" placeholder="Tuliskan deskripsi tim..." required></textarea>
+    </label>
+
+    <div class="technologies">
+      <p>Kompetisi</p>
+      <div class="tech-grid">
+        <label class="checkbox"><input type="checkbox" name="competitions" value="Liga 1">Liga 1</label>
+        <label class="checkbox"><input type="checkbox" name="competitions" value="Liga 2">Liga 2</label>
+        <label class="checkbox"><input type="checkbox" name="competitions" value="Piala Dunia">Piala Dunia</label>
+        <label class="checkbox"><input type="checkbox" name="competitions" value="Liga Champions">Liga Champions</label>
+      </div>
+    </div>
+
+    <label class="upload">Logo Tim
+      <div class="file-wrap">
+        <input name="teamLogo" type="file" accept="image/*" />
+        <span class="paperclip">📎</span>
+      </div>
+    </label>
+
+    <div class="submit-wrap">
+      <button type="submit" class="btn btn-primary">Simpan</button>
+    </div>
+  </form>
+</section>
+
+<!-- CARD LIST -->
+<section class="projects container">
+  <h2 class="title">TIM SEPAK BOLA SAYA</h2>
+
+  <div class="search-wrap">
+    <input type="text" id="searchInput" placeholder="Cari tim berdasarkan nama..." />
+  </div>
+
+  <div id="teamCards" class="cards">
+    {{#each teams}}
+    <div class="card">
+      <div class="card-img" style="background-image:url('{{this.logo}}')"></div>
+      <div class="card-body">
+        <h3>{{this.name}}</h3>
+        <p class="meta">{{this.startYear}} - {{this.endYear}}</p>
+        <p class="desc">{{this.desc}}</p>
+        <p>
+          <strong>Kompetisi:</strong>
+          {{#each this.competitions}}
+            <span>{{this}}</span>{{#unless @last}}, {{/unless}}
+          {{/each}}
+        </p>
+
+        <div class="card-actions">
+          <a href="/team/{{this.id}}" class="btn-outline">Detail</a>
+          <form action="/delete-team/{{this.id}}" method="POST">
+            <button type="submit" class="btn-outline danger">Hapus</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">© 2025 - Sepak Bola</div>
+</footer>
+
+<!-- SCRIPT -->
+<script src="/js/script.js"></script>
