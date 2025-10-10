@@ -4,17 +4,27 @@
     <div class="brand">
       <div class="logo">⚽</div>
       <nav class="nav">
+        <link rel="stylesheet" href="/css/home.css" />
         <a href="/" class="active">Home</a>
         <a href="#">Tim Sepak Bola</a>
-        <link rel="stylesheet" href="/css/home.css">
-
       </nav>
     </div>
-    <button class="contact-btn">Kontak</button>
+
+    <!-- Bagian kanan navbar -->
+    <div class="nav-right">
+      {{#if user}}
+        <span class="username">👤 {{user.username}}</span>
+        <a href="/logout" class="logout-btn">Logout</a>
+      {{else}}
+        <a href="/login" class="login-btn">Login</a>
+      {{/if}}
+      <button class="contact-btn">Kontak</button>
+    </div>
   </div>
 </header>
 
 <!-- FORM -->
+{{#if user}}
 <section class="add-project container">
   <h1 class="title">TAMBAH TIM SEPAK BOLA</h1>
 
@@ -58,6 +68,7 @@
     </div>
   </form>
 </section>
+{{/if}}
 
 <!-- CARD LIST -->
 <section class="projects container">
@@ -73,8 +84,8 @@
       <div class="card-img" style="background-image:url('{{this.logo}}')"></div>
       <div class="card-body">
         <h3>{{this.name}}</h3>
-        <p class="meta">{{this.startYear}} - {{this.endYear}}</p>
-        <p class="desc">{{this.desc}}</p>
+        <p class="meta">{{this.start_year}} - {{this.end_year}}</p>
+        <p class="desc">{{this.description}}</p>
         <p>
           <strong>Kompetisi:</strong>
           {{#each this.competitions}}
@@ -82,12 +93,14 @@
           {{/each}}
         </p>
 
+        {{#if ../user}}
         <div class="card-actions">
           <a href="/team/{{this.id}}" class="btn-outline">Detail</a>
           <form action="/delete-team/{{this.id}}" method="POST">
             <button type="submit" class="btn-outline danger">Hapus</button>
           </form>
         </div>
+        {{/if}}
       </div>
     </div>
     {{/each}}
